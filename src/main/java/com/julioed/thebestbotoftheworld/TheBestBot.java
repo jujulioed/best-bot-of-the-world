@@ -1,7 +1,7 @@
 package com.julioed.thebestbotoftheworld;
 
+import com.julioed.thebestbotoftheworld.listeners.EventListener;
 import io.github.cdimascio.dotenv.Dotenv;
-import io.github.cdimascio.dotenv.DotenvEntry;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
@@ -10,7 +10,7 @@ import net.dv8tion.jda.api.sharding.ShardManager;
 import javax.security.auth.login.LoginException;
 
 /**
- * @author julioed
+ * @author julioed <a href=https://www.linkedin.com/in/julio-eduardo-nascimento-da-silva-2576b2173/>...</a>
  */
 public class TheBestBot {
 
@@ -25,12 +25,15 @@ public class TheBestBot {
     public TheBestBot() throws LoginException {
         // config - loads the data from .env
         config = Dotenv.configure().load();
-        //config.get - gets a specific data from the .env file. In this case, the token code
+        // config.get - gets a specific data from the .env file. In this case, the token code
         String token = config.get("TOKEN");
         DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(token);
         builder.setStatus(OnlineStatus.ONLINE);
         builder.setActivity(Activity.playing("Liga das Lendas"));
         shardManager = builder.build();
+
+        // Register listeners
+        shardManager.addEventListener(new EventListener());
     }
 
     public Dotenv getConfig() {
